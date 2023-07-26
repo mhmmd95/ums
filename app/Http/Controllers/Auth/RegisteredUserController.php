@@ -25,7 +25,7 @@ final class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $roles = ModelsRole::all()->sortDesc();
+        $roles = ModelsRole::orderBy('id', 'desc')->get();
         return view('auth.register', compact('roles'));
     }
 
