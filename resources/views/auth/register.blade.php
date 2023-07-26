@@ -9,6 +9,18 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
+        <!-- Role -->
+        <div>
+            <x-input-label for="role" :value="__('Role')" />
+
+            <select name='role_id' class="block mt-1 w-full">
+                @foreach ($roles as $role)
+                    <option value="{{$role->id}}" title="{{$role->description}}">{{$role->title}}</option>
+                @endforeach
+            </select>
+            <x-input-error :messages="$errors->get('role_id')" class="mt-2" />
+        </div>
+
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
