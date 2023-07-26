@@ -7,6 +7,8 @@ namespace Database\Seeders;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use App\Enums\Role;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 final class DefaultSeeder extends Seeder
 {
@@ -31,6 +33,14 @@ final class DefaultSeeder extends Seeder
             'id' => Role::USER->value,
             'title' => 'user',
             'description' => 'the default role, responsible only on its account'
+        ]);
+
+        //admin user
+        User::factory()->create([
+            'name' => 'admin',
+            'email' => 'admin@mail.com',
+            'role_id' => Role::ADMIN->value,
+            'password' => Hash::make('12345'),
         ]);
     }
 }
