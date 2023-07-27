@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Users;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::prefix('dashboard')->name('dashboard')->group(function() {
+    Route::view('/', 'dashboard')->middleware(['auth', 'verified']);
+
+    Route::prefix('users')->name('.users.')->group(function() {
+        Route::get('/', Users\IndexController::class);
+        Route::get('/{user}/edit', Users\EditController::class)->name('edit');
+    });
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
