@@ -144,6 +144,18 @@ return [
         // 'store'  => 'redis',
     ],
 
+
+    /** =======================
+     * UMS global settings
+     * =================================
+     *
+     */
+    'settings' => [
+        'avatar' => [
+            'path' => '/images/avatar'
+        ]
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

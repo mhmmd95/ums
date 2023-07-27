@@ -33,10 +33,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function getAvatarPathAttribute() {
-        return "/images/avatar";
-    }
-
     /**
      * Relationships
      */

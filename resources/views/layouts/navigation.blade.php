@@ -52,7 +52,7 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
-                <img width=40rem height=40rem src="{{asset(Auth::user()->avatar_path .'/'. Auth::user()->avatar)}}" alt='avatar'/>
+                <img width=40rem height=40rem src="{{asset(config('app.settings.avatar.path') .'/'. Auth::user()->avatar)}}" alt='avatar'/>
             </div
 
             <!-- Hamburger -->

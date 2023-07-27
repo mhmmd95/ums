@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\Setting;
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class ProfileController extends Controller
         if($request->has('avatar')) {
 
             $imageName = time().'.'.$request->avatar->extension();
-            $request->avatar->move(public_path($request->user()->avatarPath), $imageName);
+            $request->avatar->move(public_path(config('app.settings.avatar.path')), $imageName);
 
             $request->user()->update(['avatar' => $imageName]);
         }
