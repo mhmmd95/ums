@@ -25,8 +25,8 @@ final class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        $roles = ModelsRole::orderBy('id', 'desc')->get();
-        return view('auth.register', compact('roles'));
+        // $roles = ModelsRole::orderBy('id', 'desc')->get();
+    return view('auth.register'/*, compact('roles')*/);
     }
 
     /**
@@ -39,8 +39,8 @@ final class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'role_id' => ['nullable', new Enum(Role::class)],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            // 'role_id' => ['nullable', new Enum(Role::class)],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()->mixedCase()->symbols()],
         ]);
 
         $user = User::create([
