@@ -9,10 +9,10 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
-        @can('create', App\Models\User::class)
+        {{-- @can('create', App\Models\User::class) --}}
 
         <!-- Role -->
-        <div>
+        {{-- <div>
             <x-input-label for="role" :value="__('Role')" />
 
             <select name='role_id' class="block mt-1 w-full">
@@ -24,7 +24,7 @@
             <x-input-error :messages="$errors->get('role_id')" class="mt-2" />
         </div>
 
-        @endcan
+        @endcan --}}
 
         <!-- Email Address -->
         <div class="mt-4">

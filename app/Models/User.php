@@ -18,6 +18,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'avatar',
         'role_id',
         'password',
     ];
@@ -31,6 +32,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getAvatarPathAttribute() {
+        return "/images/avatar";
+    }
 
     /**
      * Relationships

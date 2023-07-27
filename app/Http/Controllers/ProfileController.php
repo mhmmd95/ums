@@ -34,6 +34,14 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
+        if($request->has('avatar')) {
+
+            $imageName = time().'.'.$request->avatar->extension();
+            $request->avatar->move(public_path($request->user()->avatarPath), $imageName);
+
+            $request->user()->update(['avatar' => $imageName]);
+        }
+
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
 
