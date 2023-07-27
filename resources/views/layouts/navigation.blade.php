@@ -35,9 +35,16 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('profile.edit', ['user' => auth()->user()])">
                                 {{ __('Profile') }}
                             </x-dropdown-link>
+
+
+                            @can('viewAny', App\Models\User::class)
+                                <x-dropdown-link :href="route('dashboard.users.index')">
+                                    {{ __('Users') }}
+                                </x-dropdown-link>
+                            @endcan
 
                             <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
@@ -52,7 +59,7 @@
                         </x-slot>
                     </x-dropdown>
                 </div>
-                <img width=40rem height=40rem src="{{asset(config('app.settings.avatar.path') .'/'. Auth::user()->avatar)}}" alt='avatar'/>
+                <img class='rounded-full aspect-square' width=40rem height=40rem src="{{asset(config('app.settings.avatar.path') .'/'. Auth::user()->avatar)}}" alt='avatar'/>
             </div
 
             <!-- Hamburger -->
@@ -83,9 +90,15 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                <x-responsive-nav-link :href="route('profile.edit', ['user' => auth()->user()])">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
+
+                @can('viewAny', App\Models\User::class)
+                    <x-responsive-nav-link :href="route('dashboard.users.index')">
+                        {{ __('Users') }}
+                    </x-responsive-nav-link>
+                @endcan
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">

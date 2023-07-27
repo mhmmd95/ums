@@ -16,11 +16,4 @@ final class Role extends Model
         'title',
         'description',
     ];
-
-    /**
-     * Relationships
-     */
-    public function permissions(): HasMany {
-        return $this->hasMany(Permission::class);
-    }
 }

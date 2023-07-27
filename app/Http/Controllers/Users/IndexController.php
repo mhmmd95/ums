@@ -13,7 +13,9 @@ final class IndexController extends Controller
 {
     public function __invoke(): View|Factory {
 
-        $users = User::all();
+        $this->authorize('viewAny', User::class);
+
+        $users = User::clients()->paginate(10);
         return view('users.index', compact('users'));
     }
 }
