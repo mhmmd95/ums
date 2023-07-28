@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Users;
 use \Illuminate\Contracts\View\Factory;
 use \Illuminate\Contracts\View\View;
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 
 final class IndexController extends Controller
@@ -15,7 +16,7 @@ final class IndexController extends Controller
 
         $this->authorize('viewAny', User::class);
 
-        $users = User::clients()->paginate(10);
+        $users = User::clients()->paginate(8);
         return view('users.index', compact('users'));
     }
 }

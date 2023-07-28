@@ -15,6 +15,10 @@ final class UsersPolicy
         return $user->role_id === Role::ADMIN->value || ($user->role_id === Role::EDITOR->value && $client->role_id === Role::USER->value) || $user->id === $client->id;
     }
 
+    public function edit_role(User $user, User $client): bool {
+        return $user->role_id === Role::ADMIN->value && $user->id !== $client->id;
+    }
+
     public function delete(User $user, User $client): bool {
         return $user->role_id === Role::ADMIN->value || $user->id === $client->id;
     }

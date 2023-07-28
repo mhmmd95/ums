@@ -5,6 +5,7 @@ declare (strict_types = 1);
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Role;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,9 @@ final class ProfileController extends Controller
     public function edit(Request $request, User $user): View
     {
         $this->authorize('edit', $user);
-        return view('profile.edit', compact('user'));
+
+        $roles = Role::orderBy('id', 'desc')->get();
+        return view('profile.edit', compact('user', 'roles'));
     }
 
     /**
