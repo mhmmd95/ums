@@ -21,18 +21,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('dashboard')->name('dashboard')->group(function () {
-    Route::view('/', 'dashboard')->middleware(['auth', 'verified']);
+Route::middleware(['auth', 'verified'])->group(function() {
 
-    Route::prefix('users')->name('.users.')->group(function () {
-        Route::get('/', Users\IndexController::class)->name('index');
+    Route::prefix('dashboard')->name('dashboard')->group(function () {
+        Route::view('/', 'dashboard');
+
+        Route::prefix('users')->name('.users.')->group(function () {
+            Route::get('/', Users\IndexController::class)->name('index');
+        });
     });
-});
 
-Route::middleware('auth')->group(function () {
-    Route::get('/{user}/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/{user}/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/{user}/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::controller(ProfileController::class)->group(function() {
+        Route::get('/{user}/profile', 'edit')->name('profile.edit');
+        Route::patch('/{user}/profile', 'update')->name('profile.update');
+        Route::delete('/{user}/profile', 'destroy')->name('profile.destroy');
+    });
 });
 
 require __DIR__ . '/auth.php';

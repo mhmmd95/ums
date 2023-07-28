@@ -6,7 +6,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Enums\Role;
 use App\Http\Controllers\Controller;
-use App\Models\Role as ModelsRole;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -25,8 +24,7 @@ final class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        // $roles = ModelsRole::orderBy('id', 'desc')->get();
-    return view('auth.register'/*, compact('roles')*/);
+        return view('auth.register');
     }
 
     /**
@@ -39,14 +37,13 @@ final class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            // 'role_id' => ['nullable', new Enum(Role::class)],
             'password' => ['required', 'confirmed', Rules\Password::defaults()->mixedCase()->symbols()],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'role_id' => request('role_id', Role::USER->value),
+            'role_id' => Role::USER->value,
             'password' => Hash::make($request->password),
         ]);
 
